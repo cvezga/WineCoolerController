@@ -1,0 +1,1 @@
+scp ../target/WineCoolerController-*.jar cvezga@piwinecooler:/home/cvezga/wincollercontroller/.
