@@ -93,6 +93,40 @@
             font-size: .82rem;
         }
 
+        .lcd-view {
+            position: relative;
+            margin: 16px 0;
+            padding: 20px;
+            background: url('LCD.png') center/cover no-repeat;
+            border-radius: 10px;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .lcd-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            font-size: 1.4rem;
+            font-weight: bold;
+            text-shadow: 0 0 8px rgba(0, 255, 0, 0.6);
+        }
+
+        .lcd-temperature {
+            font-size: 2rem;
+            margin-bottom: 4px;
+        }
+
+        .lcd-status {
+            font-size: 0.9rem;
+            color: #00cc00;
+        }
+
         .controls {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -135,6 +169,77 @@
             background: #a08756;
         }
 
+        .control-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #353d37;
+        }
+
+        .control-row:last-child {
+            border-bottom: none;
+        }
+
+        .control-label {
+            font-size: .9rem;
+            font-weight: 600;
+            color: #e9ece7;
+        }
+
+        .toggle-slider {
+            position: relative;
+            width: 52px;
+            height: 28px;
+            flex-shrink: 0;
+        }
+
+        .toggle-slider input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider .slider-track {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #252d27;
+            border: 1px solid #465148;
+            border-radius: 28px;
+            transition: background .2s ease, border-color .2s ease;
+        }
+
+        .toggle-slider .slider-track:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 2px;
+            bottom: 2px;
+            background: #929b93;
+            border-radius: 50%;
+            transition: transform .2s ease, background .2s ease;
+        }
+
+        .toggle-slider input:checked + .slider-track {
+            background: #8e7548;
+            border-color: #a58c59;
+        }
+
+        .toggle-slider input:checked + .slider-track:before {
+            transform: translateX(24px);
+            background: #fffaf0;
+        }
+
+        .toggle-slider input:focus-visible + .slider-track {
+            outline: 3px solid #d3b779;
+            outline-offset: 3px;
+        }
+
         @media (max-width: 580px) {
             body {
                 padding: 36px 16px;
@@ -168,12 +273,34 @@
                     <p class="area-note">Top storage zone</p>
                 </div>
             </div>
+            <div class="lcd-view">
+                <div class="lcd-content">
+                    <div class="lcd-temperature">-- °C</div>
+                    <div class="lcd-status">Upper Zone</div>
+                </div>
+            </div>
             <div class="controls">
-                <button class="primary" onclick="window.location.reload()">Light On/Off</button>
-                <button onclick="window.location.reload()">Cooler On/Off</button>
-                <button onclick="window.location.reload()">Temperature Up</button>
-                <button onclick="window.location.reload()">Temperature Down</button>
-
+                <div class="control-row">
+                    <span class="control-label">Light</span>
+                    <label class="toggle-slider">
+                        <input type="checkbox" onchange="window.location.reload()">
+                        <span class="slider-track"></span>
+                    </label>
+                </div>
+                <div class="control-row">
+                    <span class="control-label">Cooler</span>
+                    <label class="toggle-slider">
+                        <input type="checkbox" onchange="window.location.reload()">
+                        <span class="slider-track"></span>
+                    </label>
+                </div>
+                <div class="control-row">
+                    <span class="control-label">Temperature</span>
+                    <div style="display:flex;gap:8px;">
+                        <button onclick="window.location.reload()">↑</button>
+                        <button onclick="window.location.reload()">↓</button>
+                    </div>
+                </div>
             </div>
         </section>
     </div>
@@ -186,12 +313,34 @@
                     <p class="area-note">Bottom storage zone</p>
                 </div>
             </div>
+            <div class="lcd-view">
+                <div class="lcd-content">
+                    <div class="lcd-temperature">-- °C</div>
+                    <div class="lcd-status">Lower Zone</div>
+                </div>
+            </div>
             <div class="controls">
-                <button class="primary" onclick="window.location.reload()">Light On/Off</button>
-                <button onclick="window.location.reload()">Cooler On/Off</button>
-                <button onclick="window.location.reload()">Temperature Up</button>
-                <button onclick="window.location.reload()">Temperature Down</button>
-
+                <div class="control-row">
+                    <span class="control-label">Light</span>
+                    <label class="toggle-slider">
+                        <input type="checkbox" onchange="window.location.reload()">
+                        <span class="slider-track"></span>
+                    </label>
+                </div>
+                <div class="control-row">
+                    <span class="control-label">Cooler</span>
+                    <label class="toggle-slider">
+                        <input type="checkbox" onchange="window.location.reload()">
+                        <span class="slider-track"></span>
+                    </label>
+                </div>
+                <div class="control-row">
+                    <span class="control-label">Temperature</span>
+                    <div style="display:flex;gap:8px;">
+                        <button onclick="window.location.reload()">↑</button>
+                        <button onclick="window.location.reload()">↓</button>
+                    </div>
+                </div>
             </div>
         </section>
     </div>
