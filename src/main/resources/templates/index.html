@@ -275,7 +275,7 @@
             </div>
             <div class="lcd-view">
                 <div class="lcd-content">
-                    <div class="lcd-temperature">-- °C</div>
+                    <div class="lcd-temperature" id="upper-temp">-- °C</div>
                     <div class="lcd-status">Upper Zone</div>
                 </div>
             </div>
@@ -315,7 +315,7 @@
             </div>
             <div class="lcd-view">
                 <div class="lcd-content">
-                    <div class="lcd-temperature">-- °C</div>
+                    <div class="lcd-temperature" id="lower-temp">-- °C</div>
                     <div class="lcd-status">Lower Zone</div>
                 </div>
             </div>
@@ -345,5 +345,24 @@
         </section>
     </div>
 </main>
+<script>
+    function updateTemperatures() {
+        fetch('/api/v1/temperature')
+            .then(response => response.json())
+            .then(data => {
+                if (data && data.length >= 2) {
+                    document.getElementById('upper-temp').textContent = data[0].toFixed(1) + ' °C';
+                    document.getElementById('lower-temp').textContent = data[1].toFixed(1) + ' °C';
+                }
+            })
+            .catch(error => console.error('Failed to fetch temperatures:', error));
+    }
+
+    // Initial fetch
+    updateTemperatures();
+
+    // Update every 5 seconds
+    setInterval(updateTemperatures, 5000);
+</script>
 </body>
 </html>
